@@ -67,10 +67,6 @@ jobs:
           echo "$PR_RESPONSE"
 
       - name: Check PR Response
-        env:
-         # PR_RESPONSE: ${{ steps.create_pull_request.outputs.PR_RESPONSE }}
-         # PR_RESPONSE: echo "$PR_RESPONSE"
-          API_URL: https://api.github.com/repos/${{ github.repository }}/pulls
         run: |
           echo "Received response: $PR_RESPONSE"
           if [[ "$(echo "$PR_RESPONSE" | jq -r '.url')" == "$API_URL" ]]; then
@@ -81,3 +77,6 @@ jobs:
           echo "$PR_RESPONSE"
           exit 1
           fi
+        env:
+          PR_RESPONSE: ${{ steps.create_pull_request.outputs.PR_RESPONSE }}
+          API_URL: https://api.github.com/repos/anujnarayan23/Automation_GitHub_Actions/pulls
