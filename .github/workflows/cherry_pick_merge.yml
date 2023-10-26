@@ -52,7 +52,7 @@ jobs:
           # Set up your GitHub repository details
           REPO="${{ github.repository }}"
           # Define the API endpoint and data for the pull request
-          API_URL="https://api.github.com/repos/$OWNER/$REPO/pulls"
+          API_URL="https://api.github.com/repos/$REPO/pulls"
           DATA='{
             "title": "Feature to Test PR",
             "head": "'"${{ github.event.inputs.feature-branch }}"'",
