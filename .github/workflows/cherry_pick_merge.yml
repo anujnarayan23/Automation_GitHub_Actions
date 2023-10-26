@@ -44,7 +44,9 @@ jobs:
         run: |
           # Push the changes to the feature branch
           git push origin ${{ github.event.inputs.feature-branch }}
-
+      - name: Install jq
+        run: sudo apt-get -y install jq
+        
       - name: Create Pull Request
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
