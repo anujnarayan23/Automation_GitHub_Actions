@@ -63,7 +63,8 @@ jobs:
           # Add debugging output
           #echo "API Response:"
           #echo "$PR_RESPONSE"
-          echo "PR_RESPONSE=$PR_RESPONSE" >> pr_response.env
+          #echo "PR_RESPONSE=$PR_RESPONSE" >> pr_response.env
+          echo "PR_RESPONSE=$(echo "$PR_RESPONSE" | jq -c '.' | sed 's/"/\\"/g')" >> pr_response.env
           
       - name: Check PR Response
         run: |
