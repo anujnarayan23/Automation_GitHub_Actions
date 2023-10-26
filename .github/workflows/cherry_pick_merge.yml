@@ -60,6 +60,10 @@ jobs:
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
 
+          # Add debugging output
+          echo "API Response:"
+          echo "$PR_RESPONSE"
+          
           # Check the response and handle errors
           if [[ "$(echo "$PR_RESPONSE" | jq -r '.url')" == "$API_URL" ]]; then
             PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
