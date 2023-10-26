@@ -30,7 +30,8 @@ jobs:
           # Create a feature branch from the merge branch
           git config --global user.name "Anuj Narayan"
           git config --global user.email "anujnarayan11@gmail.com"
-          git checkout -b $FEATURE_BRANCH $MERGE_BRANCH
+          git checkout $MERGE_BRANCH
+          git checkout -b $FEATURE_BRANCH
 
       - name: Cherry-pick Commits
         run: |
