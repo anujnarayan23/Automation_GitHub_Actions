@@ -67,7 +67,7 @@ jobs:
 
       - name: Check PR Response
         run: |
-          echo "Received response: $PR_RESPONSE"
+          echo "Received response: "
           if [[ "$(echo "$PR_RESPONSE" | jq -r '.url')" == "$API_URL" ]]; then
           PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
           echo "Pull request created successfully. PR Number: $PR_NUMBER"
