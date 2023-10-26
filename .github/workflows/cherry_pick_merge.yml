@@ -59,8 +59,8 @@ jobs:
 
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
+          echo "PR_RESPONSE=$PR_RESPONSE" >> pr_response.env
           echo "PR_RESPONSE=$(echo "$PR_RESPONSE" | jq -c '.' | sed 's/"/\\"/g')" >> pr_response.env
-         # cat pr_response.env
           
       - name: Check PR Response
         run: |
