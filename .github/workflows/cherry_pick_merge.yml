@@ -44,8 +44,6 @@ jobs:
         run: |
           # Push the changes to the feature branch
           git push origin ${{ github.event.inputs.feature-branch }}
-      - name: Install jq
-        run: sudo apt-get -y install jq
         
       - name: Create Pull Request
         env:
@@ -64,8 +62,7 @@ jobs:
 
           # Add debugging output
           #echo "API Response:"
-          echo "$PR_RESPONSE"
-          PR_RESPONSE=$(your_command_to_create_pr_and_capture_response)
+          #echo "$PR_RESPONSE"
           echo "::set-output name=PR_RESPONSE::$PR_RESPONSE"
 
       - name: Check PR Response
