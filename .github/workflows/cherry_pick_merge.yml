@@ -43,7 +43,7 @@ jobs:
       - name: Push Changes
         run: |
           # Push the changes to the feature branch
-          git push origin $FEATURE_BRANCH
+          git push origin/$FEATURE_BRANCH
 
       - name: Create Pull Request
         env:
