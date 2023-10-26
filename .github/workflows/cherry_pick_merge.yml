@@ -64,7 +64,7 @@ jobs:
           #echo "API Response:"
           #echo "$PR_RESPONSE"
           #echo "::set-output name=PR_RESPONSE::$PR_RESPONSE"
-          echo "{PR_RESPONSE}={$PR_RESPONSE}" >> $PR_RESPONSE
+          #echo "{PR_RESPONSE}={$PR_RESPONSE}" >> $PR_RESPONSE
 
       - name: Check PR Response
         run: |
