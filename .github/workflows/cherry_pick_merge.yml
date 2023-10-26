@@ -31,20 +31,14 @@ jobs:
           git config --global user.name "Anuj Narayan"
           git config --global user.email "anujnarayan11@gmail.com"
           git pull
-          git checkout -b $FEATURE_BRANCH origin/uat
+          git checkout -b $FEATURE_BRANCH origin/$MERGE_BRANCH
 
       - name: Cherry-pick Commits
         run: |
-          # Get commit IDs as a comma-separated string
-          COMMIT_IDS=${{ github.event.inputs.commit-ids }}
-
-          # Split the comma-separated string into an array
-          IFS=',' read -ra COMMIT_ID_ARRAY <<< "$COMMIT_IDS"
-
-          # Cherry-pick the specified commits
-          for COMMIT_ID in "${COMMIT_ID_ARRAY[@]}"; do
-            git cherry-pick $COMMIT_ID
-          done
+          IFS=',' read -ra COMMITS <<< "${{ github.event.inputs.commit-ids }}"
+           for COMMIT in "${COMMITS[@]}"; do
+             git cherry-pick $COMMIT
+           done
 
       - name: Push Changes
         run: |
