@@ -50,7 +50,6 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           # Set up your GitHub repository details
-          OWNER="anujnarayan23"
           REPO="${{ github.repository }}"
           # Define the API endpoint and data for the pull request
           API_URL="https://api.github.com/repos/$OWNER/$REPO/pulls"
