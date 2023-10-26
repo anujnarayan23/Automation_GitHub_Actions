@@ -59,15 +59,6 @@ jobs:
 
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
-          echo "PR_RESPONSE=$PR_RESPONSE" >> pr_response.env
-          echo "PR_RESPONSE=$(echo "$PR_RESPONSE" | jq -c '.' | sed 's/"/\\"/g')" >> pr_response.env
-
-      - name: Set PR Response
-        run: echo "PR_RESPONSE=$(cat pr_response.env)" >> $GITHUB_ENV
-          
-      - name: Check PR Response
-        run: |
-          source pr_response.env
           echo "Received response: $PR_RESPONSE"
           if [[ "$(echo "$PR_RESPONSE" | jq -r '.url')" == "$API_URL" ]]; then
             PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
@@ -77,5 +68,3 @@ jobs:
             echo "$PR_RESPONSE"
             exit 1
           fi
-        env:
-          API_URL: https://api.github.com/repos/${{ github.repository }}/pulls
