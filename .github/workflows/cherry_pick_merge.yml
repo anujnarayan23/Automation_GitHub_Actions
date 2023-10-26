@@ -31,7 +31,7 @@ jobs:
           git config --global user.name "Anuj Narayan"
           git config --global user.email "anujnarayan11@gmail.com"
           git pull
-          git checkout -b $FEATURE_BRANCH uat
+          git checkout -b $FEATURE_BRANCH origin/uat
 
       - name: Cherry-pick Commits
         run: |
