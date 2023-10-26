@@ -59,8 +59,11 @@ jobs:
 
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
+          echo "PR_RESPONSE=$PR_RESPONSE" >> pr_response.env
+          ls -lrt
+          
       - name: Load environment variables
-        run: echo "PR_RESPONSE=$(cat pr_response.env)" >> $GITHUB_ENV
+        run: echo "PR_RESPONSE=$(cat path/to/pr_response.env)" >> $GITHUB_ENV
 
       - name: Display PR_RESPONSE
         run: echo "PR_RESPONSE=$PR_RESPONSE"
