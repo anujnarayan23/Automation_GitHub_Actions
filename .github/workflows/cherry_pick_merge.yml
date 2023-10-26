@@ -49,6 +49,7 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
+          set -e
           # Define the API endpoint and data for the pull request
           API_URL="https://api.github.com/repos/${{ github.repository }}/pulls"
           DATA='{
@@ -61,8 +62,8 @@ jobs:
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
 
           # Add debugging output
-          echo "API Response:"
-          echo "$PR_RESPONSE"
+          #echo "API Response:"
+          #echo "$PR_RESPONSE"
           
           # Check the response and handle errors
           if [[ "$(echo "$PR_RESPONSE" | jq -r '.url')" == "$API_URL" ]]; then
