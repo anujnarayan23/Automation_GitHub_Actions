@@ -65,6 +65,8 @@ jobs:
           # Add debugging output
           #echo "API Response:"
           echo "$PR_RESPONSE"
+          PR_RESPONSE=$(your_command_to_create_pr_and_capture_response)
+          echo "::set-output name=PR_RESPONSE::$PR_RESPONSE"
 
       - name: Check PR Response
         run: |
