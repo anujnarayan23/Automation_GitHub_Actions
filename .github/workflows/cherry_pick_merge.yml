@@ -59,8 +59,8 @@ jobs:
 
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
-          echo "PR_RESPONSE=$PR_RESPONSE" >> PR_RESPONSE.env
-          echo "PR_RESPONSE=$(cat /home/runner/work/Automation_GitHub_Actions/Automation_GitHub_Actions/PR_RESPONSE.env)" >> $GITHUB_ENV
+         # echo "PR_RESPONSE=$PR_RESPONSE" >> PR_RESPONSE.env
+         # echo "PR_RESPONSE=$(cat /home/runner/work/Automation_GitHub_Actions/Automation_GitHub_Actions/PR_RESPONSE.env)" >> $GITHUB_ENV
 
       - name: Display PR_RESPONSE
         run: echo "PR_RESPONSE=$PR_RESPONSE"
