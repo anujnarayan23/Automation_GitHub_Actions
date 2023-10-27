@@ -17,6 +17,7 @@ jobs:
 
       - name: Delete branch
         run: |
+          git ls-remote --heads origin
           PR_NUMBER="${{ github.event.inputs.pr_number }}"
           BRANCH="pr-$PR_NUMBER"
           echo "Deleting branch: $BRANCH"
