@@ -74,3 +74,6 @@ jobs:
             echo "$PR_RESPONSE"
             exit 1
             fi
+      - name: Delete Feature Branch
+        run: |
+          git push --delete origin ${{ inputs.feature_branch }}
