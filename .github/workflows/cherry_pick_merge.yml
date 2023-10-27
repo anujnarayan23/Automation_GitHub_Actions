@@ -50,7 +50,7 @@ jobs:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           # Define the API endpoint and data for the pull request
-          API_URL=https://api.github.com/repos/${{ github.repository }}/pulls
+          API_URL="https://api.github.com/repos/${{ github.repository }}/pulls"
           DATA='{
             "title": "Feature to Test PR",
             "head": "'"${{ github.event.inputs.feature-branch }}"'",
@@ -59,8 +59,8 @@ jobs:
 
           # Send a POST request to create the pull request
           PR_RESPONSE=$(curl -X POST -H "Authorization: token $PAT_TOKEN" -d "$DATA" "$API_URL")
-          echo "PR_RESPONSE=$PR_RESPONSE" >> PR_RESPONSE.json
-          echo "PR_RESPONSE=$(cat /home/runner/work/Automation_GitHub_Actions/Automation_GitHub_Actions/PR_RESPONSE.json)" >> $GITHUB_ENV
+          echo "PR_RESPONSE=$PR_RESPONSE" >> PR_RESPONSE.env
+          echo "PR_RESPONSE=$(cat /home/runner/work/Automation_GitHub_Actions/Automation_GitHub_Actions/PR_RESPONSE.env)" >> $GITHUB_ENV
 
       - name: Display PR_RESPONSE
         run: echo "PR_RESPONSE=$PR_RESPONSE"
