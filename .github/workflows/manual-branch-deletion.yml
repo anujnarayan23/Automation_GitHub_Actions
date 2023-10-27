@@ -18,7 +18,8 @@ jobs:
         IFS=',' read -ra branches <<< "$INPUT_BRANCH_NAMES"
         for branch in "${branches[@]}"; do
           echo "Deleting branch: $branch"
-          git push origin --delete "$branch"
+          git push https://$PAT_TOKEN@github.com/${{ github.repository }} --delete "$branch"
         done
       env:
         INPUT_BRANCH_NAMES: ${{ github.event.inputs.branch_names }}
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
