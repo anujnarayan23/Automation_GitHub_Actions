@@ -3,8 +3,8 @@ name: Manual Branch Deletion
 on:
   workflow_dispatch:
     inputs:
-      pr_number:
-        description: 'Pull Request Number'
+      branch_name:
+        description: 'Provide the branch name'
         required: true
 
 jobs:
@@ -18,8 +18,8 @@ jobs:
       - name: Delete branch
         run: |
           git ls-remote --heads origin
-          PR_NUMBER="${{ github.event.inputs.pr_number }}"
-          BRANCH="pr-$PR_NUMBER"
-          echo "Deleting branch: $BRANCH"
-          git push origin --delete "$BRANCH"
+          #PR_NUMBER="${{ github.event.inputs.pr_number }}"
+          #BRANCH="pr-$PR_NUMBER"
+          echo "Deleting branch: ${{ github.event.inputs.branch_name }}"
+          git push origin --delete "${{ github.event.inputs.branch_name }}"
         shell: bash
