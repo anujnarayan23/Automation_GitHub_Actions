@@ -32,6 +32,8 @@ jobs:
           git config --global user.email "anujnarayan11@gmail.com"
           git pull
           git checkout -b $FEATURE_BRANCH origin/$MERGE_BRANCH
+          git log
+          git show 5bc163d
 
       - name: Cherry-pick Commits
         run: |
