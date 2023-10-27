@@ -64,7 +64,7 @@ jobs:
           echo "PR_RESPONSE=$PR_RESPONSE" >> PR_RESPONSE.env
           cat PR_RESPONSE.env
           PR_NUMBER=$(echo "$PR_RESPONSE" | jq -r '.number')
-          PR_NUMBER=$(cat "PR_RESPONSE.env" | jq -r '.number')
+         # PR_NUMBER=$(cat "PR_RESPONSE.env" | jq -r '.number')
          # echo "PR_RESPONSE=$(cat /home/runner/work/Automation_GitHub_Actions/Automation_GitHub_Actions/PR_RESPONSE.env)" >> $GITHUB_ENV
 
       - name: Display PR_RESPONSE
