@@ -76,4 +76,4 @@ jobs:
             fi
       - name: Delete Feature Branch
         run: |
-          git push --delete origin ${{ inputs.feature_branch }}
+          git push --delete origin ${{ github.event.inputs.feature-branch }}
