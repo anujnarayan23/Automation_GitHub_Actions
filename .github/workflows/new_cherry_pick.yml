@@ -68,3 +68,5 @@ jobs:
         title: Cherry-Pick Commits
         head: ${{ steps.push_changes.outputs.new_branch }}
         base: test
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
