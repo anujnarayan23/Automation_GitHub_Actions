@@ -15,9 +15,15 @@ on:
 jobs:
   list_commits:
     runs-on: ubuntu-latest
+    
     outputs:
       commit_options: ${{ steps.list_commits.outputs.commit_options }}
     steps:
+    - name: Debug
+      run: |
+        git fetch origin
+        git branch -a
+        git log --oneline --no-decorate origin/dev..dev
     - name: Fetch Commit IDs
       id: list_commits
       run: |
