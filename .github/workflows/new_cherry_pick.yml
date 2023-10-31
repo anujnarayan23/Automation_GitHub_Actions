@@ -63,7 +63,7 @@ jobs:
       shell: bash
 
     - name: Create Pull Request
-      uses: actions/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v5
       with:
         title: Cherry-Pick Commits
         head: ${{ steps.push_changes.outputs.new_branch }}
