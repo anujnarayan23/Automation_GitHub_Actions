@@ -41,7 +41,7 @@ jobs:
 
     - name: Create Feature Branch
       run: |
-        git checkout test
+        git checkout origin/test
         new_branch="feature-$(date +'%Y%m%d%H%M%S')"
         git checkout -b $new_branch
       shell: bash
