@@ -37,7 +37,7 @@ jobs:
 
       - name: Cherry-pick Commits
         run: | 
-          git cherry-pick $COMMIT
+          git cherry-pick ${{ github.event.inputs.commit-ids }}
 
       - name: Push Changes
         run: |
