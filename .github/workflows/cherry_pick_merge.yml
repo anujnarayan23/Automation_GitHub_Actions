@@ -36,11 +36,8 @@ jobs:
           git fsck --full
 
       - name: Cherry-pick Commits
-        run: |
-          IFS=',' read -ra COMMITS <<< "${{ github.event.inputs.commit-ids }}"
-           for COMMIT in "${COMMITS[@]}"; do
-             git cherry-pick $COMMIT
-           done
+        run: | 
+          git cherry-pick $COMMIT
 
       - name: Push Changes
         run: |
