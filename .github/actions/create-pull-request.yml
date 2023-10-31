@@ -1,4 +1,4 @@
 - name: Create Pull Request
   uses: .create-pull-request
   with:
-    git submodule add https://github.com/actions/create-pull-request .create-pull-request
+    git submodule add https://github.com/anujnarayan23/Automation_GitHub_Actions/actions/create-pull-request .create-pull-request
