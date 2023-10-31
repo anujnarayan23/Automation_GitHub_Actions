@@ -1,8 +1,9 @@
 name: Fetch Commits from Branch
 
 on:
-  workflow_run:
-    workflows: ["fetch-commits"]  # Replace with the name of the workflow that triggers this action
+  workflow_dispatch:
+ # workflow_run:
+  #  workflows: ["fetch-commits"]  # Replace with the name of the workflow that triggers this action
 
 jobs:
   fetch-commits:
