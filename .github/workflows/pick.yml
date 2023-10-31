@@ -9,7 +9,6 @@ on:
       commit_ids:
         description: 'Select commit IDs'
         required: true
-        default: 'Select commits'
         options: ${{ steps.list_commits.outputs.commit_options_array }}
 
 jobs:
