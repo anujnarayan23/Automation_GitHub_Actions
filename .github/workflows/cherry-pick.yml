@@ -1,0 +1,43 @@
+name: Cherry-Pick to Test Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      feature_branch_name:
+        description: 'Feature branch name'
+        required: true
+      cherry_pick_commit_sha:
+        description: 'Commit SHA to cherry-pick'
+        required: true
+
+jobs:
+  cherry-pick-to-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v2
+
+      - name: Create Feature Branch
+        run: |
+          git checkout test
+          git pull origin test
+          git checkout -b ${{ github.event.inputs.feature_branch_name }}
+          git push origin ${{ github.event.inputs.feature_branch_name }}
+
+      - name: Cherry-Pick Commit
+        run: |
+          git checkout ${{ github.event.inputs.feature_branch_name }}
+          git cherry-pick ${{ github.event.inputs.cherry_pick_commit_sha }}
+          # Handle conflicts and commit as needed
+          git push origin ${{ github.event.inputs.feature_branch_name }}
+
+      - name: Create Pull Request
+        run: |
+          gh pr create --base test --head ${{ github.event.inputs.feature_branch_name }} --title "Feature: Cherry-Pick to Test" --body "Cherry-pick commit ${{ github.event.inputs.cherry_pick_commit_sha }} to test branch"
+        # You may need to install the GitHub CLI using a previous step
+        # See: https://github.com/cli/cli#installation
+
+      - name: Finish Workflow
+        run: |
+          echo "Cherry-pick and pull request created successfully."
