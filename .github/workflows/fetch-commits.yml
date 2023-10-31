@@ -16,19 +16,18 @@ jobs:
     - name: Fetch Commits
       run: |
         # Set your GitHub token
-        TOKEN=$PAT_TOKEN
+        # TOKEN=$PAT_TOKEN
         
         # Define the branch and repository
         BRANCH="dev"  # Replace with your desired branch name
         REPO="anujnarayan23/Automation_GitHub_Actions.git"  # Replace with your repository
         
         # Fetch commit IDs from the branch
-        COMMITS=$(curl -s -H "Authorization: token $TOKEN" "https://api.github.com/repos/$REPO/commits?sha=$BRANCH" | jq -r '.[].sha')
+        COMMITS=$(curl -s -H "Authorization: token $PAT_TOKEN" "https://api.github.com/repos/$REPO/commits?sha=$BRANCH" | jq -r '.[].sha')
         
         echo "Commit IDs from branch $BRANCH:"
         echo "$COMMITS"
         
-        # You can use the $COMMITS variable in your workflow as needed
-        
+        # You can use the $COMMITS variable in your workflow as needed  
       env:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
