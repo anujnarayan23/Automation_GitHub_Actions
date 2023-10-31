@@ -42,8 +42,8 @@ jobs:
     - name: Create Feature Branch
       run: |
         git pull
-        git fetch origin
-        git checkout origin/test
+        git fetch
+        git checkout test
         new_branch="feature-$(date +'%Y%m%d%H%M%S')"
         git checkout -b $new_branch
       shell: bash
