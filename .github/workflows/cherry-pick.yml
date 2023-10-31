@@ -24,7 +24,7 @@ jobs:
       - name: Create Feature Branch
         run: |
           MERGE_BRANCH=${{ github.event.inputs.merge-branch }}
-          git checkout origin/$MERGE_BRANCH
+          git checkout $MERGE_BRANCH
           # Create a feature branch from the merge branch
           git config --global user.name "Anuj Narayan"
           git config --global user.email "anujnarayan11@gmail.com"
