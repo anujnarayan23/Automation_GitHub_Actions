@@ -18,6 +18,7 @@ jobs:
     
     outputs:
       commit_options: ${{ steps.list_commits.outputs.commit_options_array }}
+      commit_options_array: ${{ split(commit_options, ',') }}
     steps:
     - name: Debug
       run: |
