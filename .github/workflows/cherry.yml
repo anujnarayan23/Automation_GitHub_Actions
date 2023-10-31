@@ -2,7 +2,7 @@ name: Cherry Pick Commits
 
 on:
   workflow_run:
-    workflows: ["fetch-commits"]  # Update to match the name of your commit fetch workflow
+    workflows: ["Fetch Commits from Branch"]  # Update to match the name of your commit fetch workflow
     types:
       - completed
 
