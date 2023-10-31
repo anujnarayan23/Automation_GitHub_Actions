@@ -10,25 +10,25 @@ on:
         description: 'Select commit IDs'
         required: true
         default: 'Select commits'
-        options: ${{ steps.list_commits.outputs.commit_options }}
+        options: ${{ steps.list_commits.outputs.commit_options_array }}
 
 jobs:
   list_commits:
     runs-on: ubuntu-latest
     
     outputs:
-      commit_options: ${{ steps.list_commits.outputs.commit_options }}
+      commit_options: ${{ steps.list_commits.outputs.commit_options_array }}
     steps:
     - name: Debug
       run: |
         git fetch origin
         git branch -a
-        git log --oneline --no-decorate origin/dev..dev
+        git log --oneline --no-decorate origin/dev
     - name: Fetch Commit IDs
       id: list_commits
       run: |
         COMMIT_OPTIONS=""
-        for commit in $(git log --oneline --no-decorate origin/dev..dev); do
+        for commit in $(git log --oneline --no-decorate origin/dev); do
           COMMIT_ID=$(echo "$commit" | awk '{print $1}')
           COMMIT_MSG=$(echo "$commit" | cut -d' ' -f2-)
           COMMIT_OPTIONS="$COMMIT_OPTIONS$COMMIT_ID:$COMMIT_MSG,"
