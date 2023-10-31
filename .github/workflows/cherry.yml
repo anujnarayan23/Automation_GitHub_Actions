@@ -1,0 +1,38 @@
+name: Cherry Pick Commits
+
+on:
+  workflow_run:
+    workflows: ["Fetch Commits"]  # Update to match the name of your commit fetch workflow
+    types:
+      - completed
+
+jobs:
+  cherry_pick:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v2
+
+      - name: Set Feature Branch
+        run: |
+          # Set your feature branch name
+          FEATURE_BRANCH="feature-branch"  # Replace with your desired feature branch name
+          git checkout -b $FEATURE_BRANCH
+          git push origin $FEATURE_BRANCH
+
+      - name: Cherry Pick Commits
+        run: |
+          # Your commit IDs will be available in the $GITHUB_EVENT_PATH file
+          # Extract the commit IDs and cherry-pick them
+          for commit in $(cat $GITHUB_EVENT_PATH | jq -r '.commits[] | .sha'); do
+            git cherry-pick $commit
+          done
+        env:
+          GITHUB_EVENT_PATH: ${{ github.event.workflow_run.workflow_run_id }}
+
+      - name: Push to Feature Branch
+        run: |
+          git push origin $FEATURE_BRANCH
+        env:
+          FEATURE_BRANCH: $FEATURE_BRANCH
