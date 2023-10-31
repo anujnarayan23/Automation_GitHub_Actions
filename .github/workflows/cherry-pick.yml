@@ -9,6 +9,9 @@ on:
       cherry_pick_commit_sha:
         description: 'Commit SHA to cherry-pick'
         required: true
+      merge-branch:
+        description: 'Merge Branch Name'
+        required: true
 
 jobs:
   cherry-pick-to-test:
@@ -20,7 +23,8 @@ jobs:
 
       - name: Create Feature Branch
         run: |
-          git checkout test
+          MERGE_BRANCH=${{ github.event.inputs.merge-branch }}
+          git checkout -b origin/$MERGE_BRANCH
           git pull origin test
           git checkout -b ${{ github.event.inputs.feature_branch_name }}
           git push origin ${{ github.event.inputs.feature_branch_name }}
