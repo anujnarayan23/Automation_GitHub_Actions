@@ -23,7 +23,7 @@ jobs:
         REPO="anujnarayan23/Automation_GitHub_Actions.git"  # Replace with your repository
         
         # Fetch commit IDs from the branch
-        COMMITS=$(curl -s -H "Authorization: token $PAT_TOKEN" "https://api.github.com/repos/$REPO/commits?sha=$BRANCH" | jq -r '.[].sha')
+        COMMITS=$(curl -s -H "Authorization: token $PAT_TOKEN" "https://api.github.com/repos/${{ github.repository }}/commits?sha=$BRANCH" | jq -r '.[].sha')
         
         echo "Commit IDs from branch $BRANCH:"
         echo "$COMMITS"
