@@ -3,30 +3,28 @@ name: Select Commits and Push to Feature Branch
 on:
   workflow_dispatch:
     inputs:
-      commit_ids:
-        description: 'Comma-separated list of commit IDs to cherry-pick'
-        required: true
       feature_branch_name:
         description: 'Name of the feature branch to create'
         required: true
+      commit_ids:
+        description: 'Select commit IDs'
+        required: true
+        default: 'Select commits'
+        options: ${{ steps.list_commits.outputs.commit_options }}
 
 jobs:
-  cherry_pick_commits:
+  list_commits:
     runs-on: ubuntu-latest
-
+    outputs:
+      commit_options: ${{ steps.list_commits.outputs.commit_options }}
     steps:
-    - name: Check Out Repository
-      uses: actions/checkout@v2
-
-    - name: Cherry Pick Commits
+    - name: Fetch Commit IDs
+      id: list_commits
       run: |
-        IFS=',' read -ra COMMIT_IDS <<< "${{ github.event.inputs.commit_ids }}"
-        FEATURE_BRANCH="${{ github.event.inputs.feature_branch_name }}"
-        git checkout -b "$FEATURE_BRANCH"
-        for COMMIT in "${COMMIT_IDS[@]}"; do
-          git cherry-pick "$COMMIT"
+        COMMIT_OPTIONS=""
+        for commit in $(git log --oneline --no-decorate origin/dev..dev); do
+          COMMIT_ID=$(echo "$commit" | awk '{print $1}')
+          COMMIT_MSG=$(echo "$commit" | cut -d' ' -f2-)
+          COMMIT_OPTIONS="$COMMIT_OPTIONS$COMMIT_ID:$COMMIT_MSG,"
         done
-
-    - name: Push to Feature Branch
-      run: |
-        git push origin "$FEATURE_BRANCH"
+        echo "::set-output name=commit_options::$COMMIT_OPTIONS"
