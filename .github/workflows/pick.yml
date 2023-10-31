@@ -1,0 +1,32 @@
+name: Select Commits and Push to Feature Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_ids:
+        description: 'Comma-separated list of commit IDs to cherry-pick'
+        required: true
+      feature_branch_name:
+        description: 'Name of the feature branch to create'
+        required: true
+
+jobs:
+  cherry_pick_commits:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out Repository
+      uses: actions/checkout@v2
+
+    - name: Cherry Pick Commits
+      run: |
+        IFS=',' read -ra COMMIT_IDS <<< "${{ github.event.inputs.commit_ids }}"
+        FEATURE_BRANCH="${{ github.event.inputs.feature_branch_name }}"
+        git checkout -b "$FEATURE_BRANCH"
+        for COMMIT in "${COMMIT_IDS[@]}"; do
+          git cherry-pick "$COMMIT"
+        done
+
+    - name: Push to Feature Branch
+      run: |
+        git push origin "$FEATURE_BRANCH"
