@@ -1,63 +1,70 @@
-name: Cherry-Pick and Merge
+name: Cherry-Pick Commits and Create PR
 
 on:
   workflow_dispatch:
     inputs:
-      commit_ids:
-        description: 'Comma-separated list of commit IDs to cherry-pick and merge'
+      source_branch:
+        description: 'Source branch to fetch commits from'
         required: true
 
 jobs:
-  cherry_pick_and_merge:
+  cherry_pick_commits:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Check Input and Split Commit IDs
-      id: split_commits
-      run: |
-        IFS=',' read -ra commits <<< "$INPUT_COMMIT_IDS"
-        for commit in "${commits[@]}"; do
-          echo "Cherry-picking commit: $commit"
-          git cherry-pick $commit
-          if [ $? -ne 0 ]; then
-            echo "Cherry-pick failed for commit: $commit"
-            exit 1
-          fi
-        done
-      env:
-        INPUT_COMMIT_IDS: ${{ github.event.inputs.commit_ids }}
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    - name: Commit Cherry-Picked Changes
+    - name: Fetch Commits from Source Branch
+      id: fetch_commits
+      run: |
+        git fetch origin ${{ github.event.inputs.source_branch }}:$GITHUB_SHA
+        commit_list=$(git log $GITHUB_SHA --oneline)
+        echo "::set-output name=commit_list::$commit_list"
+      shell: bash
+
+    - name: Select Commits to Cherry-Pick
+      id: select_commits
+      run: |
+        IFS=$'\n'
+        select_commits=()
+        for commit in ${{ steps.fetch_commits.outputs.commit_list }}; do
+          select_commits+=($commit)
+        done
+        echo "::set-output name=selected_commits::${select_commits[*]}"
+      shell: bash
+
+    - name: Set up Git Configuration
       run: |
         git config --global user.name "Anuj Narayan"
         git config --global user.email "anujnarayan11@gmail.com"
-        git commit -am "Cherry-picked changes"
-      if: steps.split_commits.outputs
+      shell: bash
 
     - name: Create Feature Branch
       run: |
-        git checkout -b feature-branch test
-        git push origin feature-branch
-      if: success() && steps.split_commits.outputs
+        git checkout test
+        new_branch="feature-$(date +'%Y%m%d%H%M%S')"
+        git checkout -b $new_branch
+      shell: bash
+
+    - name: Cherry-Pick Selected Commits
+      id: cherry_pick
+      run: |
+        IFS=$'\n'
+        for commit in ${{ steps.select_commits.outputs.selected_commits }}; do
+          commit_hash=$(echo "$commit" | cut -d ' ' -f 1)
+          git cherry-pick $commit_hash
+        done
+      shell: bash
+
+    - name: Push Changes to Feature Branch
+      run: |
+        git push origin $new_branch
+        echo "::set-output name=new_branch::$new_branch"
+      shell: bash
 
     - name: Create Pull Request
-      id: create_pr
-      uses: actions/checkout@v2
+      uses: actions/create-pull-request@v4
       with:
-        ref: "feature-branch"
-      if: success() && steps.split_commits.outputs
-
-    - name: Merge Pull Request
-      run: |
-        pr_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/pull/${{ steps.create_pr.outputs.pull_request }}"
-        echo "Opening PR at $pr_url"
-      if: success() && steps.create_pr.outputs
-
-    - name: Close Workflow on Conflict
-      run: |
-        echo "Conflicts detected in the pull request. Resolve conflicts manually."
-        exit 1
-      if: failure()
+        title: Cherry-Pick Commits
+        head: ${{ steps.push_changes.outputs.new_branch }}
+        base: test
