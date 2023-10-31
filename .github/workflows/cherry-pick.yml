@@ -24,12 +24,12 @@ jobs:
       - name: Create Feature Branch
         run: |
           MERGE_BRANCH=${{ github.event.inputs.merge-branch }}
-          git checkout test
+
           # Create a feature branch from the merge branch
           git config --global user.name "Anuj Narayan"
           git config --global user.email "anujnarayan11@gmail.com"
-          git pull origin test
-          git checkout -b ${{ github.event.inputs.feature_branch_name }}
+
+          git checkout -b ${{ github.event.inputs.feature_branch_name }} origin/$MERGE_BRANCH
           git push origin ${{ github.event.inputs.feature_branch_name }}
 
       - name: Cherry-Pick Commit
