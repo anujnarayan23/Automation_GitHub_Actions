@@ -39,7 +39,10 @@ jobs:
       - name: Cherry-pick Commits
         run: | 
           git checkout ${{ github.event.inputs.feature-branch }}
-          git cherry-pick ${{ github.event.inputs.commit-ids }}
+          IFS=',' read -ra COMMITS <<< "${{ github.event.inputs.commit-ids }}"
+           for COMMIT in "${COMMITS[@]}"; do
+             git cherry-pick $COMMIT
+           done
 
       - name: Push Changes
         run: |
