@@ -19,11 +19,6 @@ jobs:
       commit_options: ${{ steps.list_commits.outputs.commit_options_array }}
       commit_options_array: ${{ split(commit_options, ',') }}
     steps:
-    - name: Debug
-      run: |
-        git fetch origin
-        git branch -a
-        git log --oneline --no-decorate origin/dev
     - name: Fetch Commit IDs
       id: list_commits
       run: |
