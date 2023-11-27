@@ -3,6 +3,7 @@
     "release_number": "RL12345",
     "cr_number": "CR12345",
     "project_foldername": "amer_mdm",
+    "test": "abcd",
     "server_files": [
         {
             "Paramfiles": "['/amer_mdm/ParamFiles/MARS.param','/amer_mdm/ParamFiles/MARS1.param']"
