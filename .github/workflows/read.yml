@@ -23,11 +23,13 @@ jobs:
         run: |
           # Read JSON file and set environment variables
           Paramfiles=$(jq -r '.server_files[].Paramfiles' config.json)
+          echo "Paramfiles=$Paramfiles" >> $GITHUB_ENV
+          echo "::set-output name=Paramfiles::$Paramfiles"
 
       - name: Display Read Values
         run: |
           # Display the values read from JSON file
-          echo "[set-output name=Paramfiles;]$Paramfiles"
+          echo "Paramfiles: $Paramfiles"
 
       - name: Use Values in Further Steps
         run: |
