@@ -30,7 +30,7 @@ jobs:
       - name: Display Read Values
         run: |
           # Display the values read from JSON file
-          echo "Paramfiles: $Paramfiles"
+          echo "$Paramfiles"
 
       - name: Use Values in Further Steps
         run: |
