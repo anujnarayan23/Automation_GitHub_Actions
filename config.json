@@ -1,23 +1,23 @@
 {
-   "apms_id": "APMS-12345",
-   "release_number": "RL12345",
-   "cr_number": "CR12345",
-   "project_foldername": "amer_mdm"
-   "server_files": [
-       {
-           "Paramfiles": "['/amer_mdm/ParamFiles/MARS.param','/amer_mdm/ParamFiles/MARS1.param']"
-       },
-       {
-           "Scripts": "['/amer_mdm/Scripts/MARS3.param','/amer_mdm/Scripts/MARS4.param']"
-       },
-       {
-           "SourceFiles": "['/amer_mdm/SourceFiles/MARS5.param','/amer_mdm/SourceFiles/MARS6.param']"
-       },
-       {
-           "TargetFiles": "['/amer_mdm/TargetFiles/MARS7.param','/amer_mdm/TargetFiles/MARS8.param']"
-       },
-	   {
-           "SwaggerFiles": "['/amer_mdm/SwaggerFiles/MARS9.param','/amer_mdm/SwaggerFiles/MARS10.param']"
-       }
-   ],
+    "apms_id": "APMS-12345",
+    "release_number": "RL12345",
+    "cr_number": "CR12345",
+    "project_foldername": "amer_mdm",
+    "server_files": [
+        {
+            "Paramfiles": "['/amer_mdm/ParamFiles/MARS.param','/amer_mdm/ParamFiles/MARS1.param']"
+        },
+        {
+            "Scripts": "['/amer_mdm/Scripts/MARS3.param','/amer_mdm/Scripts/MARS4.param']"
+        },
+        {
+            "SourceFiles": "['/amer_mdm/SourceFiles/MARS5.param','/amer_mdm/SourceFiles/MARS6.param']"
+        },
+        {
+            "TargetFiles": "['/amer_mdm/TargetFiles/MARS7.param','/amer_mdm/TargetFiles/MARS8.param']"
+        },
+        {
+            "SwaggerFiles": "['/amer_mdm/SwaggerFiles/MARS9.param','/amer_mdm/SwaggerFiles/MARS10.param']"
+        }
+    ]
 }
