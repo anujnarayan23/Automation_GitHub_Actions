@@ -5,7 +5,7 @@
     "project_foldername": "amer_mdm",
     "server_files": [
         {
-            "Paramfiles": "['/amer_mdm/ParamFiles/MARS.param']"
+            "Paramfiles": "['/amer_mdm/ParamFiles/MARS.param','/amer_mdm/ParamFiles/MARS1.param']"
         },
         {
             "Scripts": "['/amer_mdm/Scripts/MARS3.param','/amer_mdm/Scripts/MARS4.param']"
