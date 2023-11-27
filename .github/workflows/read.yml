@@ -23,7 +23,8 @@ jobs:
         run: |
           # Read JSON file and set environment variables
           Paramfiles=$(jq -r '.server_files[].Paramfiles' config.json)
-          echo "Paramfiles: $Paramfiles"
+          echo "##[set-output name=Paramfiles;]$Paramfiles"
+        shell: bash
 
       - name: Display Read Values
         run: |
